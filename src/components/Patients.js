@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 class Patients extends Component {
   render() {
-    return <div>Main Component</div>;
+    return <div>Patients Component</div>;
   }
 }
 
