@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class Main extends Component {
+class Patients extends Component {
   render() {
     return <div>Main Component</div>;
   }
@@ -15,5 +15,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(Main);
-//export default  Main
+)(Patients);
