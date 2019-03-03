@@ -3,7 +3,6 @@
 //
 
 import { takeLatest, call, put } from "redux-saga/effects";
-//import axios from "axios";
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
 export function* watcherSaga() {
@@ -13,8 +12,9 @@ export function* watcherSaga() {
 // function that makes the api request and returns a Promise for response
 function fetchDog() {
   console.log("fetch");
-  ///return fetch("https://jsonplaceholder.typicode.com/todos");
-  return fetch("https://dog.ceo/api/breeds/image/random");
+  return fetch("https://dog.ceo/api/breeds/image/random").then(response =>
+    response.json()
+  );
   //  return axios({
   //   method: "get",
   //    url: "https://dog.ceo/api/breeds/image/random"
@@ -27,7 +27,7 @@ function* workerSaga() {
     const response = yield call(fetchDog);
     console.log("response", response);
     //const dog = response.data.message;
-    const dog = response.json().message;
+    const dog = response.message;
 
     // dispatch a success action to the store with the new dog
     yield put({ type: "API_CALL_SUCCESS", dog });
