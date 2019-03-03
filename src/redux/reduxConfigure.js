@@ -1,7 +1,11 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
 
 //reducers
-import rootReducer from "./reducers/rootReducer";
+//import rootReducer from "../reducers/rootReducer";
+
+import { reducer } from "./redux";
+import { watcherSaga } from "./saga";
 
 const logAction = store => {
   //this is going to run when the action dispatches
@@ -17,6 +21,21 @@ const logAction = store => {
     };
   };
 };
-const store = createStore(rootReducer, null, applyMiddleware(logAction));
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+// dev tools middleware
+const reduxDevTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(sagaMiddleware),
+    reduxDevTools
+  )
+);
+
+sagaMiddleware.run(watcherSaga);
 
 export default store;
