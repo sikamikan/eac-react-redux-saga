@@ -1,40 +1,38 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import logo from "../logo.svg";
 
 class Main extends Component {
   state = {
     data: null
   };
   componentDidMount() {
-    fetch("https://dog.ceo/api/breeds/image/random")
-      //.then(response => response.json())
-      .then(data => console.log("data1", data));
+    console.log("componentDidMount");
   }
-
+  onCheckTangoEventos = () => {
+    const { tangoEventos } = this.props;
+    console.log("onCheck", tangoEventos);
+    console.log("onCheck", tangoEventos[0]);
+    debugger;
+  };
   render() {
-    const { fetching, dog, onRequestDog, error } = this.props;
+    const { fetching, tangoEventos, onRequestTangoEventos, error } = this.props;
 
+    if (tangoEventos) {
+      console.log("fetching2 ", fetching);
+      console.log("tangoEventos ", tangoEventos);
+      console.log("tangoEventos 0 ", tangoEventos[0]);
+      debugger;
+    }
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={dog || logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Dog Saga</h1>
-        </header>
-
-        {dog ? (
-          <p className="App-intro">Keep clicking for new dogs</p>
-        ) : (
-          <p className="App-intro">Replace the React icon with a dog!</p>
-        )}
-
         {fetching ? (
           <button disabled>Fetching...</button>
         ) : (
-          <button onClick={onRequestDog}>Request a Dog</button>
+          <button onClick={onRequestTangoEventos}>Request tangoEventos</button>
         )}
 
-        {error && <p style={{ color: "red" }}>Uh oh - something went wrong!</p>}
+        {error && <p style={{ color: "red" }}>Error!</p>}
+        <button onClick={this.onCheckTangoEventos}>Request tangoEventos</button>
       </div>
     );
   }
@@ -43,17 +41,16 @@ class Main extends Component {
 const mapStateToProps = state => {
   return {
     fetching: state.fetching,
-    dog: state.dog,
+    tangoEventos: state.tangoEventos,
     error: state.error
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestDog: () => dispatch({ type: "API_CALL_REQUEST" })
+    onRequestTangoEventos: () => dispatch({ type: "API_CALL_REQUEST" })
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Main);
-//export default  Main

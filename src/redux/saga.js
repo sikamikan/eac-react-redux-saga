@@ -25,7 +25,7 @@ function fetchDog() {
 function* workerSaga() {
   try {
     const response = yield call(fetchDog);
-    console.log("response", response);
+    console.log("response in saga", response);
     //const dog = response.data.message;
     const dog = response.message;
 
