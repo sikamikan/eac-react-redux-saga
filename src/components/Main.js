@@ -10,29 +10,31 @@ class Main extends Component {
   }
   onCheckTangoEventos = () => {
     const { tangoEventos } = this.props;
-    console.log("onCheck", tangoEventos);
-    console.log("onCheck", tangoEventos[0]);
-    debugger;
+    console.log("onCheck tangoEventos: ", tangoEventos);
+    console.log("onCheck tangoEventos[0]: ", tangoEventos[0]);
   };
+
   render() {
     const { fetching, tangoEventos, onRequestTangoEventos, error } = this.props;
 
     if (tangoEventos) {
-      console.log("fetching2 ", fetching);
-      console.log("tangoEventos ", tangoEventos);
-      console.log("tangoEventos 0 ", tangoEventos[0]);
-      debugger;
+      //console.log("fetching2 ", fetching);
+      console.log("tangoEventos: ", tangoEventos);
+      console.log("tangoEventos[0]: ", tangoEventos[0]);
     }
     return (
       <div className="App">
+        <br />
+        <br />
         {fetching ? (
           <button disabled>Fetching...</button>
         ) : (
           <button onClick={onRequestTangoEventos}>Request tangoEventos</button>
         )}
-
+        <br />
+        <br />
         {error && <p style={{ color: "red" }}>Error!</p>}
-        <button onClick={this.onCheckTangoEventos}>Request tangoEventos</button>
+        <button onClick={this.onCheckTangoEventos}>Read tangoEventos</button>
       </div>
     );
   }
