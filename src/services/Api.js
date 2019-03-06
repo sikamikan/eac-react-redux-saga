@@ -18,7 +18,7 @@ export function get(col, callback) {
   //firestore.collection('Users').orderBy("FirstName");
 }
 
-export function getPremise(col) {
+export function getPremiseVieja(col) {
   let res = [];
   const ref = db.collection(col);
 
@@ -27,6 +27,24 @@ export function getPremise(col) {
       res.push(doc.data());
     });
   });
+  return res;
+}
+
+export function getPremise(col) {
+  let res = [];
+  const ref = db.collection(col);
+  return ref
+    .get()
+    .then(snapshot => {
+      snapshot.docs.forEach((doc, i) => {
+        res.push(doc.data());
+      });
+      return res;
+    })
+    .then(res => {
+      //console.log("res", res);
+      return Promise.all(res);
+    });
   return res;
 }
 
